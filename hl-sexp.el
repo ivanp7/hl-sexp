@@ -71,7 +71,8 @@
   "Active the Hl-Sexp overlay on the current sexp in the current window.
 \(Unless it's a minibuffer window.)"
   (when hl-sexp-mode			; Could be made buffer-local.
-    (unless (window-minibuffer-p (selected-window)) ; silly in minibuffer
+    (unless (or (use-region-p) ; silly with active region
+                (window-minibuffer-p (selected-window))) ; silly in minibuffer
       (unless hl-sexp-overlay
 	(setq hl-sexp-overlay (make-overlay 1 1)) ; to be moved
 	(overlay-put hl-sexp-overlay 'face 'hl-sexp-face))
